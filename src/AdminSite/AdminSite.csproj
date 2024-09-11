@@ -10,6 +10,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="appsettings.Development.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="appsettings.Development.json" />
     <None Include="wwwroot\js\site.js" />
     <None Include="wwwroot\lib\bootstrap\LICENSE" />
     <None Include="wwwroot\lib\jquery-validation-unobtrusive\jquery.validate.unobtrusive.js" />
@@ -25,9 +30,11 @@
   </ItemGroup>
 
   <ItemGroup>
+	<PackageReference Include="Azure.Identity" Version="1.12.0" />
 	<PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="6.0.1" />
 	<PackageReference Include="Microsoft.Bcl.AsyncInterfaces" Version="6.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.DataProtection.Abstractions" Version="6.0.1" />
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="5.1.5" />
 	<PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.1" />
 	<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.1" />
 	<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.1">
@@ -36,6 +43,7 @@
     </PackageReference>
     <PackageReference Include="Microsoft.Extensions.Logging" Version="6.0.0" />
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="6.0.0" />
+    <PackageReference Include="Microsoft.NETCore.Platforms" Version="6.0.4" />
   </ItemGroup>
 
   <ItemGroup>
