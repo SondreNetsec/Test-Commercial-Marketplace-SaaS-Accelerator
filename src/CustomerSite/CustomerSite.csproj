@@ -7,6 +7,7 @@
 	  <Product>Marketplace.SaaS.Accelerator</Product>
 	  <AssemblyName>CustomerSite</AssemblyName>
 	  <RootNamespace>Marketplace.SaaS.Accelerator.CustomerSite</RootNamespace>
+	  <UserSecretsId>7cdd4a11-4bc2-453f-b263-5d697fb8b594</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
@@ -25,6 +26,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Remove="appsettings.Development.json" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="8.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.DataProtection.Abstractions" Version="8.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.6" />
@@ -35,6 +40,8 @@
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="3.1.1" />
 	  <PackageReference Include="Microsoft.CodeAnalysis.Common" Version="4.10.0" />
 	  <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.10.0" />
+	  <PackageReference Include="Microsoft.Graph" Version="5.58.0" />
+	  <PackageReference Include="Microsoft.Identity.Client" Version="4.64.1" />
 	  
   </ItemGroup>
 
@@ -52,5 +59,9 @@
   <ItemGroup>
     <Folder Include="Properties\PublishProfiles\" />
     <Folder Include="Properties\ServiceDependencies\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="appsettings.Development.json" />
   </ItemGroup>
 </Project>

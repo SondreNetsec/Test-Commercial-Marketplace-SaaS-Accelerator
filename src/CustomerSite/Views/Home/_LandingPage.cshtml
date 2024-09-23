@@ -3,9 +3,6 @@
 @using Marketplace.SaaS.Accelerator.Services.Models
 @model Marketplace.SaaS.Accelerator.Services.Models.SubscriptionResultExtension
 
-@{
-    ViewData["Title"] = "Home";
-}
 @if (!Model.ShowWelcomeScreen)
 {
     <div class="container" id="divHome">
@@ -188,20 +185,37 @@
                     </dl>
                 </div>
                 <div class="text-end">
-                    @if (Model.SubscriptionStatus == SubscriptionStatusEnumExtension.Subscribed)
-                    {
-                        <button type="submit" asp-action="SubscriptionOperation" asp-route-subscriptionId="@Model.Id" asp-route-planId="@Model.PlanId" asp-route-operation="Deactivate" class="cm-button-danger text-right">Unsubscribe</button>
-                        <button type="submit" asp-action="Subscriptions" class="cm-button-default text-end">Go to Subscription List</button>
-                    }
-                    @if (Model.SubscriptionStatus == SubscriptionStatusEnumExtension.PendingFulfillmentStart && Model.IsAutomaticProvisioningSupported == true)
-                    {
-                        <a onclick="SubscriptionOperation('@Model.Id','@Model.PlanId','Activate')" id="btnActive" class="cm-button-default text-end">Activate</a>
-                    }
-                    @if (Model.SubscriptionStatus == SubscriptionStatusEnumExtension.PendingFulfillmentStart && Model.IsAutomaticProvisioningSupported == false)
-                    {
-                        <a onclick="SubscriptionOperation('@Model.Id','@Model.PlanId','Activate')" id="btnActive" class="cm-button-default text-end" style="text-decoration:none;">Subscribe</a>
-                    }
-                </div>
+    @if (Model.SubscriptionStatus == SubscriptionStatusEnumExtension.Subscribed)
+    {
+        // Retrieve tenantName from SubscriptionParameters where PlanAttributeId is 5
+        var tenantName = Model.SubscriptionParameters.FirstOrDefault(p => p.PlanAttributeId == 5)?.Value;
+        // Replace spaces with underscores
+        var tenantNameForUrl = tenantName?.Replace(" ", "_");
+        // Construct the deployment URL
+        var deployUrl = $"https://deploy.netsecurity.cloud/?account={tenantNameForUrl}&type=ms-defender&key=jssi1vOO";
+
+        <button type="submit" asp-action="SubscriptionOperation" asp-route-subscriptionId="@Model.Id" asp-route-planId="@Model.PlanId" asp-route-operation="Deactivate" class="cm-button-danger text-right">Unsubscribe</button>
+        <button type="submit" asp-action="Subscriptions" class="cm-button-default text-end">Go to Subscription List</button>
+
+        <!-- New Button with Dynamic URL -->
+        @if (!string.IsNullOrEmpty(tenantNameForUrl))
+        {
+            <a href="@deployUrl" class="cm-button-default text-end">Deploy MDR!</a>
+        }
+        <a href="https://portal.netsecurity.no/" class="cm-button-default text-end">Go to Netsecurity portal</a>
+    
+    }
+
+    @if (Model.SubscriptionStatus == SubscriptionStatusEnumExtension.PendingFulfillmentStart && Model.IsAutomaticProvisioningSupported == true)
+    {
+        <a onclick="SubscriptionOperation('@Model.Id','@Model.PlanId','Activate')" id="btnActive" class="cm-button-default text-end">Activate</a>
+    }
+
+    @if (Model.SubscriptionStatus == SubscriptionStatusEnumExtension.PendingFulfillmentStart && Model.IsAutomaticProvisioningSupported == false)
+    {
+        <a onclick="SubscriptionOperation('@Model.Id','@Model.PlanId','Activate')" id="btnActive" class="cm-button-default text-end" style="text-decoration:none;">Subscribe</a>
+    }
+</div>
             }
         </form>
     </div>
